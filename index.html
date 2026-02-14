@@ -136,19 +136,43 @@
     const loveText = document.getElementById("loveText");
 
     noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
 
-    function moveNo() {
-      const container = document.querySelector(".buttons");
-      const maxX = container.clientWidth - noBtn.offsetWidth;
-      const maxY = container.clientHeight - noBtn.offsetHeight;
+function moveNo() {
+  const container = document.querySelector(".buttons");
+  const yesRect = yesBtn.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
 
-      const randomX = Math.random() * maxX;
-      const randomY = Math.random() * maxY;
+  let randomX, randomY, tries = 0;
 
-      noBtn.style.left = randomX + "px";
-      noBtn.style.top = randomY + "px";
-    }
+  do {
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
+
+    randomX = Math.random() * maxX;
+    randomY = Math.random() * maxY;
+
+    // Predict NO button position
+    const noRect = {
+      left: containerRect.left + randomX,
+      top: containerRect.top + randomY,
+      right: containerRect.left + randomX + noBtn.offsetWidth,
+      bottom: containerRect.top + randomY + noBtn.offsetHeight
+    };
+
+    const overlaps =
+      !(noRect.right < yesRect.left ||
+        noRect.left > yesRect.right ||
+        noRect.bottom < yesRect.top ||
+        noRect.top > yesRect.bottom);
+
+    if (!overlaps) break;
+    tries++;
+  } while (tries < 20);
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+}
 
     yesBtn.addEventListener("click", () => {
   loveText.style.display = "block";
