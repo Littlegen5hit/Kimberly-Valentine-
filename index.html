@@ -110,19 +110,25 @@
 <body>
 
   <div class="card" id="card">
-    <h1>Kimberly 💖</h1>
-    <p>Will you be my Valentine?</p>
+  <h1>Kimberly 💖</h1>
 
-    <div class="buttons">
-      <button id="yesBtn">Yes 😘</button>
-      <button id="noBtn">No 🙄</button>
-    </div>
+  <img src="kimberly.jpg" 
+       style="width:140px;height:140px;object-fit:cover;border-radius:50%;box-shadow:0 0 20px rgba(255,45,85,0.7);margin-bottom:15px;" />
 
-    <div class="love" id="loveText">
-      I love you so much ❤️<br>
-      You mean the world to me 🌎✨
-    </div>
+  <p>Will you be my Valentine?</p>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 😘</button>
+    <button id="noBtn">No 🙄</button>
   </div>
+
+  <div class="love" id="loveText">
+    I love you so much ❤️<br>
+    You mean the world to me 🌎✨
+  </div>
+</div>
+
+<audio id="bgMusic" src="love.mp3"></audio>
 
   <script>
     const noBtn = document.getElementById("noBtn");
@@ -145,9 +151,10 @@
     }
 
     yesBtn.addEventListener("click", () => {
-      loveText.style.display = "block";
-      spawnHearts();
-    });
+  loveText.style.display = "block";
+  document.getElementById("bgMusic").play();
+  spawnHearts();
+});
 
     function spawnHearts() {
       for (let i = 0; i < 25; i++) {
